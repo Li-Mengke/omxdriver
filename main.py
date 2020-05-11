@@ -25,6 +25,8 @@ if __name__ == '__main__':
     first_track = que.get()
     driver = OmxDriver('widget', '')
     driver.load(first_track)
+    time.sleep(4)
+    driver.pause()
 
 
     exit()

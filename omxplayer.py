@@ -40,7 +40,9 @@ class OmxDriver():
             if 'volume' in options:
                 self.volume = options['volume']
 
-    def load(self, track, volume =  cmd_options = None):
+    def load(self, track, cmd_options = None, first_track = False):
+
+        self.cmd_options = cmd_options
 
         #getting the user
         self.dbus_user = os.environ['USER']
@@ -54,7 +56,7 @@ class OmxDriver():
         if cmd_options == None or cmd_options == '':
             self.omxplayer_cmd = OmxDriver.omx_command + " --dbus_name '" + self.dbus_name + "' " + track
         else:
-            self.omxplayer_cmd = OmxDriver.omx_command + options + " --dbus_name '"+ self.dbus_name + "' " + track
+            self.omxplayer_cmd = OmxDriver.omx_command + self.cmd_options + " --dbus_name '"+ self.dbus_name + "' " + track
 
 
         #start the process and get its pid
@@ -76,20 +78,39 @@ class OmxDriver():
             logging.error('failed to get duration of track, terminating program')
             self.terminate('failed to get duration of track')
 
+        #if not the first track loaded, pause at the very beginning
+
         return result
 
     def pause(self):
-        #pause the video on signal
+        '''
+        try to pause the current track
+        :return: True or False based on success
+        '''
         if self.process_is_running():
-            if self.player_is_paused():
-
-
+            tries = 0
+            while tries <= 5:
+                try:
+                    self.dbus_player.Pause()
+                    tries += 1
+                except dbus.exceptions.DBusException as e:
+                    logging.error('failed to pause player because of a dbus error ' + e)
+                paused = self.player_is_paused()
+                if paused == 'Paused':
+                    self.paused = True
+                    return True
+                if paused == None:
+                    logging.error('pause failed becasue failed to check pause status from dbus')
+                    return False
+            return False
+        else:
+            logging.warning('trying to pause when the process is not running')
 
 
     def check_duration(self):
         '''
-        check the duration of the currently loaded track. if track
-        :return:
+        check the duration of the currently loaded track. If failed, log relavent information
+        :return: length of the current track in microseconds
         '''
         micros = -1
         tries = 0
@@ -105,6 +126,18 @@ class OmxDriver():
         return micros
 
 
+    def set_volume(self, millibels = 6000):
+        '''
+        set the volume for the player through dbus. If failes, log information
+        :param millibels: volume to set in millibels
+        :return: True or False indicating success
+        '''
+        try:
+            self.dbus_props.Volume(pow(10, millibels/2000.0))
+            return True
+        except dbus.exceptions.DBusException as e:
+            logging.error('failed to set volume through dbus: ' + e)
+            return False
 
 
     def exit(self, reason):
