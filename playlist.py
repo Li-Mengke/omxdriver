@@ -1,26 +1,26 @@
 import queue
-
+import logging
 
 
 class PlayList():
-    self.queue = None
-    self.player = None
 
 
 
-    def __init__(self, caller, maxsize):
+    def __init__(self, caller = None, maxsize = 10):
         self.player = caller
         self.queue = queue.Queue(maxsize = maxsize)
 
 
     def populate(self, list):
+        print('full status ' + str(self.queue.full()))
         while not self.queue.full():
+            print('notfull')
             for i in list:
                 try:
-                    queue.put(i, False)
+                    self.queue.put(i,block =  False)
                 except:
                     logging.info('queue is full, finished populating')
-                    break
+                    return
 
     def put(self, item, block = False, timeout = None):
         try:
@@ -33,14 +33,20 @@ class PlayList():
     def get(self):
         try:
             return self.queue.get(timeout = 0.01)
+        except queue.Empty as e:
+            raise e
         except:
-            qisfull = self.queue.full()
-            qisempty = self.queue.empty()
-            size = self.queue.qsize()
-            logging.error('an error occured when trying to get item from queue, queue empty is '
-                          + qisfull + ' empty status is ' + qisempty + 'size now is ' + size)
-            return False
+            raise
+            # qisfull = self.queue.full()
+            # qisempty = self.queue.empty()
+            # size = self.queue.qsize()
+            # logging.error('an error occured when trying to get item from queue, queue empty is '
+            #               + str(qisfull) + ' empty status is ' + str(qisempty) + 'size now is ' + str(size))
 
-
-
-
+    def dump(self):
+        while True:
+            try:
+                self.get()
+            except queue.Empty:
+                print('dump finished')
+                break

@@ -9,12 +9,13 @@ import logging
 
 class OmxDriver():
 
-    omx_command = 'omxplayer --no-keys '
+    omx_command = "omxplayer --no-keys --win '0,0,1920,1080'"
+    # omx_command = 'omxplayer --no-keys'
 
     def __init__(self, widget, options = None):
-        #configure logging
-        logging.basicConfig(filename='app.log', filemode='a',
-                            format='%(name)s - %(thread)d - %(levelname)s - %(message)s', level = logging.DEBUG)
+        
+        #get self.logger
+        self.logger = logging.getLogger('logger')
         #initiate passed-in parameters
         self.widget = widget
 
@@ -66,8 +67,10 @@ class OmxDriver():
         #connect to dbus
         result = self.wait_for_dbus()
         if result == False:
-            logging.error('failed to connect to dbus after multiple attempts, killing program')
-            self.terminate()
+            self.logger.error('failed to connect to dbus after multiple attempts')
+            #self.terminate('dbus connection failure')
+        # else:
+        #     print('dbus info is: ', self.dbus_player, self.dbus_props, self.dbus_root)
 
         #check and update status
         self.player_running = self.process_is_running()
@@ -75,12 +78,33 @@ class OmxDriver():
         #get duration
         self.duration = self.check_duration()
         if self.duration <0:
-            logging.error('failed to get duration of track, terminating program')
+            self.logger.error('failed to get duration of track, terminating program')
             self.terminate('failed to get duration of track')
 
         #if not the first track loaded, pause at the very beginning
 
         return result
+
+    def load_and_pause(self, track, cmd_options = None):
+        self.load(cmd_options = cmd_options, track = track)
+        self.paused = False
+        while self.paused == False:
+            position = self.get_position()
+            if position > -200000:
+                self.pause()
+
+
+
+    def pause_at_end(self):
+        sleep_time = self.duration - self.get_position() - 500000
+        time.sleep(sleep_time/1000000)
+        while True:
+            if self.process_is_running():
+                time_till_end = self.duration - self.get_position()
+                if time_till_end < 300000:
+                    self.pause()
+                    #print('paused successfully' + str(time_till_end))
+                    break
 
     def pause(self):
         '''
@@ -94,17 +118,39 @@ class OmxDriver():
                     self.dbus_player.Pause()
                     tries += 1
                 except dbus.exceptions.DBusException as e:
-                    logging.error('failed to pause player because of a dbus error ' + e)
+                    self.logger.error('failed to pause player because of a dbus error ' + e.get_dbus_message())
                 paused = self.player_is_paused()
                 if paused == 'Paused':
                     self.paused = True
                     return True
                 if paused == None:
-                    logging.error('pause failed becasue failed to check pause status from dbus')
+                    self.logger.error('pause failed becasue failed to check pause status from dbus')
                     return False
             return False
         else:
-            logging.warning('trying to pause when the process is not running')
+            self.logger.warning('trying to pause when the process is not running')
+
+
+    def unpause(self):
+        attempts = 0
+        result = False
+        while self.paused == True and attempts < 5:
+            try:
+                attempts += 1
+                self.dbus_player.Action(16)
+            except dbus.exceptions.DBusException as e:
+                self.logger.error('faield to unpause because of dbus error: ' + e.get_dbus_message())
+                return False
+            paused = self.player_is_paused()
+            if paused == 'Paused':
+                self.paused = True
+                self.logger.error('attemts ' + str(attempts) + ' failed to unpause the video')
+                result = False
+            else:
+                self.paused = False
+                result = True
+        return result
+
 
 
     def check_duration(self):
@@ -119,9 +165,9 @@ class OmxDriver():
                 try:
                     micros = self.dbus_props.Duration()
                 except dbus.exceptions.DBusException as e:
-                    logging.error('failed to check track duration: ' + e)
+                    self.logger.error('failed to check track duration: ' + e.get_dbus_message())
             else:
-                logging.warning('trying to check duration when process is not running')
+                self.logger.warning('trying to check duration when process is not running')
             tries += 1
         return micros
 
@@ -136,7 +182,7 @@ class OmxDriver():
             self.dbus_props.Volume(pow(10, millibels/2000.0))
             return True
         except dbus.exceptions.DBusException as e:
-            logging.error('failed to set volume through dbus: ' + e)
+            self.logger.error('failed to set volume through dbus: ' + e.get_dbus_message())
             return False
 
 
@@ -147,23 +193,29 @@ class OmxDriver():
                 self.dbus_root.Quit()
                 return True
             except dbus.exceptions.DBusException as e:
-                logging.error('failed to exit because of a dbus error: '+e)
+                self.logger.error('failed to exit because of a dbus error: ' + e.get_dbus_message())
                 return False
         else:
-            logging.error('the process is not runing while trying to exit')
+            self.logger.error('the process is not runing while trying to exit')
             return False
 
     def terminate(self, reason):
-        logging.critical('terminating the program, becasue: ' + reason)
-        self.process.send_signal(signal.SIGINT)
-        sleeptime = 0.1
+        self.logger.warning('terminating the program, becasue: ' + reason)
+        #sending quit signal to dbus
+        try:
+            self.dbus_root.Quit()
+        except:
+            return False
+        return True
+
+        #because there is a lag between signal sent and process stopping. Tune this just enough to prevent an unnecessary recursion
+        sleeptime = 0.2
         time.sleep(sleeptime)
         if self.process_is_running():
-            logging.error(f'process is still running %f s after keyboard interrupt is sent', sleeptime )
+            self.logger.error(f'process is still running %f s after keyboard interrupt is sent', sleeptime )
             self.terminate('failed to terminate, trying again')
         else:
-            logging.info('process terminated')
-            exit()
+            self.logger.info('process terminated')
 
     def process_is_running(self):
         #check the status of the player when called
@@ -177,7 +229,7 @@ class OmxDriver():
             try:
                 result = self.dbus_props.PlaybackStatus()
             except dbus.exceptions.DBusException as e:
-                logging.warning('faled to check player status: ' + e)
+                self.logger.warning('faled to check player status: ' + e.get_dbus_message())
                 return None
             return result
         else:
@@ -186,13 +238,13 @@ class OmxDriver():
 
     def get_position(self):
         position_ms = -1
-        if self.process_is_running()
+        if self.process_is_running():
             try:
                 position_ms = self.dbus_props.Position()
             except dbus.exceptions.DBusException as e:
-                logging.warning('failed to get position, running on: ' + e)
+                self.logger.warning('failed to get position, running on: ' + e.get_dbus_message())
         else:
-            logging.warning('trying to get position when process is not running')
+            self.logger.warning('trying to get position when process is not running')
         return position_ms
 
     def mute(self):
@@ -201,7 +253,7 @@ class OmxDriver():
                 self.dbus_player.Mute()
                 return True
             except dbus.exceptions.DBusException as e:
-                logging.warning('failed to mute player: ' + e)
+                self.logger.warning('failed to mute player: ' + e.get_dbus_message())
                 return False
 
     def unmute(self):
@@ -210,12 +262,12 @@ class OmxDriver():
                 self.dbus_player.Unmute()
                 return True
             except dbus.exceptions.DBusException as e:
-                logging.warning('failed to unmute player: ' + e)
+                self.logger.warning('failed to unmute player: ' + e.get_dbus_message())
                 return False
 
     def wait_for_dbus(self):
         tries = 0
-        while tries<=2 and self.dbus_connected == False:
+        while tries<= 10 and self.dbus_connected == False:
             try:
                 self.dbus_connect(tries)
                 time.sleep(0.05)
@@ -231,26 +283,26 @@ class OmxDriver():
 
         #first must successfully find the bus address file
         if not os.path.exists(bus_address_filename):
-            logging.info('attempt '+str(attempts) + 'cannot find the debus addressfile') #need to include object and thread info
+            self.logger.info('attempt '+str(attempts) + 'cannot find the debus addressfile') #need to include object and thread info
             return False
         #read address and check validity
         else:
             file = open(bus_address_filename, 'r')
             bus_address = file.read().rstrip()
             if bus_address == '':
-                logging.info('attempt ' + str(attempts) + ' resulted in an empty dbus address read') #need to include object and thread info
+                self.logger.info('attempt ' + str(attempts) + ' resulted in an empty dbus address read') #need to include object and thread info
                 return False
             #check the existence of dbus pid file
             else:
                 if not os.path.exists(bus_pid_filename):
-                    logging.info('attempt ' + str(attemps) + ' cannot find dbus pid file')
+                    self.logger.info('attempt ' + str(attemps) + ' cannot find dbus pid file')
                     return False
                 #read the pid and check validity
                 else:
                     file = open(bus_pid_filename, 'r')
                     bus_pid = file.read().rstrip()
                     if bus_pid == '':
-                        logging.info('attempt ' + str(attemps) + ' resulted in an empty dbus pid read')
+                        self.logger.info('attempt ' + str(attemps) + ' resulted in an empty dbus pid read')
                         return False
                     else:
                         os.environ["DBUS_SESSION_BUS_ADDRESS"] = bus_address
@@ -266,7 +318,7 @@ class OmxDriver():
                 self.dbus_props = dbus.Interface(omx_object, "org.freedesktop.DBus.Properties")
                 self.dbus_player = dbus.Interface(omx_object, "org.mpris.MediaPlayer2.Player")
             except dbus.exceptions.DBusException as e:
-                logging.error('attempt ' + str(attempts) + ' failed to connect to dbus: ' +e)
+                #logging.error('attempt ' + str(attempts) + ' failed to connect to dbus: ' + e.get_dbus_message())
                 return False
         self.dbus_connected = True
         return True

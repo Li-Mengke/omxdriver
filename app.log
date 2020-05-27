@@ -1,29 +1,49 @@
-root - $(levelname)s - this will get logged to a file
-root - $(levelname)s - this will get logged to a file
-root - $(levelname)s - this will get logged to a file
-root - $(levelname)s - this will get logged to a file
-root - $(levelname)s - this will get logged to a file
-root - $(levelname)s - first log
-root - $(thread)d - $(levelname)s - this will get logged to a file
-root - $(thread)d - $(levelname)s - first log
-root - 3070139088 - WARNING - this will get logged to a file
-root - 3070139088 - DEBUG - first log
-root - 3069848272 - INFO - attempt 0 failed to connect to dbus
-root - 3069848272 - INFO - attempt 1 failed to connect to dbus
-root - 3069848272 - INFO - attempt 2 failed to connect to dbus
-root - 3069848272 - INFO - attempt 3 failed to connect to dbus
-root - 3069848272 - INFO - attempt 4 failed to connect to dbus
-root - 3069860560 - INFO - attempt 0 failed to connect to dbus
-root - 3069860560 - INFO - attempt 1 failed to connect to dbus
-root - 3069860560 - INFO - attempt 2 failed to connect to dbus
-root - 3069860560 - INFO - attempt 3 failed to connect to dbus
-root - 3069860560 - INFO - attempt 4 failed to connect to dbus
-root - 3069860560 - INFO - attempt 5 failed to connect to dbus
-root - 3069651664 - INFO - attempt 0 failed to connect to dbus
-root - 3069651664 - INFO - attempt 1 failed to connect to dbus
-root - 3069651664 - INFO - attempt 2 failed to connect to dbus
-root - 3069651664 - INFO - attempt 3 failed to connect to dbus
-root - 3069332176 - INFO - attempt 0 failed to connect to dbus
-root - 3069332176 - INFO - attempt 1 failed to connect to dbus
-root - 3069332176 - INFO - attempt 2 failed to connect to dbus
-root - 3069332176 - ERROR - failed to connect to dbus after multiple attempts
+2020-05-26 15:12:33,475 - root - 3069553360 - WARNING - terminating the program, becasue: play finished
+2020-05-26 15:12:38,261 - root - 3069553360 - WARNING - terminating the program, becasue: play finished
+2020-05-26 15:12:51,073 - root - 3069553360 - WARNING - terminating the program, becasue: play finished
+2020-05-26 15:12:51,095 - root - 3069553360 - INFO - empty queue, re-populating
+2020-05-26 15:13:05,798 - root - 3069553360 - WARNING - faled to check player status: Message recipient disconnected from message bus without replying
+2020-05-26 15:13:05,799 - root - 3069553360 - ERROR - pause failed becasue failed to check pause status from dbus
+2020-05-26 15:13:05,837 - root - 3069553360 - WARNING - terminating the program, becasue: play finished
+2020-05-26 15:13:15,510 - root - 3069553360 - WARNING - terminating the program, becasue: play finished
+2020-05-26 15:13:20,282 - root - 3069553360 - WARNING - terminating the program, becasue: play finished
+2020-05-26 15:13:33,095 - root - 3069553360 - WARNING - terminating the program, becasue: play finished
+2020-05-26 15:13:33,110 - root - 3069553360 - INFO - empty queue, re-populating
+2020-05-26 15:13:47,799 - root - 3069553360 - WARNING - faled to check player status: Message recipient disconnected from message bus without replying
+2020-05-26 15:13:47,799 - root - 3069553360 - ERROR - pause failed becasue failed to check pause status from dbus
+2020-05-26 15:13:47,833 - root - 3069553360 - WARNING - terminating the program, becasue: play finished
+2020-05-26 15:13:57,515 - root - 3069553360 - WARNING - terminating the program, becasue: play finished
+2020-05-26 15:14:02,310 - root - 3069553360 - WARNING - terminating the program, becasue: play finished
+2020-05-26 15:14:15,127 - root - 3069553360 - WARNING - terminating the program, becasue: play finished
+2020-05-26 15:14:15,156 - root - 3069553360 - INFO - empty queue, re-populating
+2020-05-26 15:14:29,849 - root - 3069553360 - WARNING - faled to check player status: Message recipient disconnected from message bus without replying
+2020-05-26 15:14:29,850 - root - 3069553360 - ERROR - pause failed becasue failed to check pause status from dbus
+2020-05-26 15:14:29,877 - root - 3069553360 - WARNING - terminating the program, becasue: play finished
+2020-05-26 15:14:39,526 - root - 3069553360 - WARNING - terminating the program, becasue: play finished
+2020-05-26 15:14:44,307 - root - 3069553360 - WARNING - terminating the program, becasue: play finished
+2020-05-26 15:14:57,127 - root - 3069553360 - WARNING - terminating the program, becasue: play finished
+2020-05-26 15:14:57,156 - root - 3069553360 - INFO - empty queue, re-populating
+2020-05-26 15:15:11,849 - root - 3069553360 - WARNING - faled to check player status: Message recipient disconnected from message bus without replying
+2020-05-26 15:15:11,850 - root - 3069553360 - ERROR - pause failed becasue failed to check pause status from dbus
+2020-05-26 15:15:11,893 - root - 3069553360 - WARNING - terminating the program, becasue: play finished
+2020-05-26 15:15:21,551 - root - 3069553360 - WARNING - terminating the program, becasue: play finished
+2020-05-26 15:15:26,338 - root - 3069553360 - WARNING - terminating the program, becasue: play finished
+2020-05-26 15:15:39,147 - root - 3069553360 - WARNING - terminating the program, becasue: play finished
+2020-05-26 15:15:39,160 - root - 3069553360 - INFO - empty queue, re-populating
+2020-05-26 15:15:53,860 - root - 3069553360 - WARNING - faled to check player status: Message recipient disconnected from message bus without replying
+2020-05-26 15:15:53,860 - root - 3069553360 - ERROR - pause failed becasue failed to check pause status from dbus
+2020-05-26 15:15:53,893 - root - 3069553360 - WARNING - terminating the program, becasue: play finished
+2020-05-26 15:16:03,539 - root - 3069553360 - WARNING - terminating the program, becasue: play finished
+2020-05-26 15:16:08,322 - root - 3069553360 - WARNING - terminating the program, becasue: play finished
+2020-05-26 15:16:21,138 - root - 3069553360 - WARNING - terminating the program, becasue: play finished
+2020-05-26 15:16:21,168 - root - 3069553360 - INFO - empty queue, re-populating
+2020-05-26 15:16:35,893 - root - 3069553360 - WARNING - faled to check player status: Message recipient disconnected from message bus without replying
+2020-05-26 15:16:35,894 - root - 3069553360 - ERROR - pause failed becasue failed to check pause status from dbus
+2020-05-26 15:16:35,926 - root - 3069553360 - WARNING - terminating the program, becasue: play finished
+2020-05-26 15:16:45,601 - root - 3069553360 - WARNING - terminating the program, becasue: play finished
+2020-05-26 15:16:50,403 - root - 3069553360 - WARNING - terminating the program, becasue: play finished
+2020-05-26 15:17:03,212 - root - 3069553360 - WARNING - terminating the program, becasue: play finished
+2020-05-26 15:17:03,242 - root - 3069553360 - INFO - empty queue, re-populating
+2020-05-26 15:17:17,976 - root - 3069553360 - WARNING - faled to check player status: Message recipient disconnected from message bus without replying
+2020-05-26 15:17:17,977 - root - 3069553360 - ERROR - pause failed becasue failed to check pause status from dbus
+2020-05-26 15:17:18,013 - root - 3069553360 - WARNING - terminating the program, becasue: play finished

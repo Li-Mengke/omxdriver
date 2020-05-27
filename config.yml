@@ -1,0 +1,13 @@
+device_info:
+  MAC: None
+  queue_name: None
+  exchangeName: qutou.osp-exchange
+  routing_key: None
+  address: None
+  background: black
+
+
+screen_config:
+  num_screens: 1
+  screen1: 0,0,1920,1080,video
+
