@@ -1,15 +1,12 @@
 import logging
+import pika
 import os
 
-
-
-class LogManager():
-    '''
-    this class manages logs and write to a file in the /logging/ directory. If fatal error occurs, this also restarts the program and
-    exists itself elegantly. Report terminal error to server
-    '''
+class Error_Handler():
 
     def __init__(self):
+        logging.basicConfig(filename='/home/pi/PycharmProjects/untitled/app.log', filemode = 'a', format = '%(name)s - $(levelname)s - %(message)s')
+        logging.basicConfig(level = logging.DEBUG)
         self.logger = logging.getLogger('logger')
 
     def
