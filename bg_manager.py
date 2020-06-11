@@ -14,4 +14,6 @@ class tk_manager():
         print('screen size is ' + str(self.screen_height) + ' by ' + str(self.screen_width))
         self.num_screens = dict['screen_config']['num_screens']
         if self.num_screens != len(dict['screen_config'])-1:
-            logging.error('number of screens does not match given number of parameters')
+            '''this is a fatal error, report'''
+            logger.error('number of screens does not match given number of parameters')
+

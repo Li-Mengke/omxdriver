@@ -11,3 +11,18 @@ screen_config:
   num_screens: 1
   screen1: 0,0,1920,1080,video
 
+rabbitmq:
+  host: 139.196.230.59
+  port: 5672
+  username: guest
+  password: guest
+
+# 最大消费者数量
+rabbitmqcontainer:
+  concurrentConsumers: 10
+  maxConcurrentConsumers: 100
+  prefetchCount: 1
+
+error_report:
+  report_url: None
+
