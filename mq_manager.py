@@ -125,11 +125,3 @@ class MQManager():
 
 
 
-with open('mqresult.txt') as f:
-    data = json.load(f)
-
-url = data['content']['putintoTask']['url']
-fileName = data['content']['putintoTask']['materialName']
-
-result = download(url, fileName)
-print(result)

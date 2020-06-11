@@ -17,3 +17,26 @@ class tk_manager():
             '''this is a fatal error, report'''
             logger.error('number of screens does not match given number of parameters')
 
+        self.root = tkinter.Tk()
+        self.root.config(bg='black')
+        self.root.attributes('-fullscreen', True)
+        self.root.after(1, main)
+        tkinter.mainloop()
+
+
+
+
+
+def read_yaml(filename):
+    import yaml
+    '''
+    loads a yml file for its contained parameters
+    :param fn: file name to read
+    :return: loaded result as a dictionary
+    '''
+    with open(filename) as f:
+        result = yaml.load(f, Loader=yaml.SafeLoader)
+    return result
+dict = read_yaml('config.yml')
+bg = tk_manager()
+bg.run(dict)

@@ -1,49 +1,15 @@
-2020-05-26 15:12:33,475 - root - 3069553360 - WARNING - terminating the program, becasue: play finished
-2020-05-26 15:12:38,261 - root - 3069553360 - WARNING - terminating the program, becasue: play finished
-2020-05-26 15:12:51,073 - root - 3069553360 - WARNING - terminating the program, becasue: play finished
-2020-05-26 15:12:51,095 - root - 3069553360 - INFO - empty queue, re-populating
-2020-05-26 15:13:05,798 - root - 3069553360 - WARNING - faled to check player status: Message recipient disconnected from message bus without replying
-2020-05-26 15:13:05,799 - root - 3069553360 - ERROR - pause failed becasue failed to check pause status from dbus
-2020-05-26 15:13:05,837 - root - 3069553360 - WARNING - terminating the program, becasue: play finished
-2020-05-26 15:13:15,510 - root - 3069553360 - WARNING - terminating the program, becasue: play finished
-2020-05-26 15:13:20,282 - root - 3069553360 - WARNING - terminating the program, becasue: play finished
-2020-05-26 15:13:33,095 - root - 3069553360 - WARNING - terminating the program, becasue: play finished
-2020-05-26 15:13:33,110 - root - 3069553360 - INFO - empty queue, re-populating
-2020-05-26 15:13:47,799 - root - 3069553360 - WARNING - faled to check player status: Message recipient disconnected from message bus without replying
-2020-05-26 15:13:47,799 - root - 3069553360 - ERROR - pause failed becasue failed to check pause status from dbus
-2020-05-26 15:13:47,833 - root - 3069553360 - WARNING - terminating the program, becasue: play finished
-2020-05-26 15:13:57,515 - root - 3069553360 - WARNING - terminating the program, becasue: play finished
-2020-05-26 15:14:02,310 - root - 3069553360 - WARNING - terminating the program, becasue: play finished
-2020-05-26 15:14:15,127 - root - 3069553360 - WARNING - terminating the program, becasue: play finished
-2020-05-26 15:14:15,156 - root - 3069553360 - INFO - empty queue, re-populating
-2020-05-26 15:14:29,849 - root - 3069553360 - WARNING - faled to check player status: Message recipient disconnected from message bus without replying
-2020-05-26 15:14:29,850 - root - 3069553360 - ERROR - pause failed becasue failed to check pause status from dbus
-2020-05-26 15:14:29,877 - root - 3069553360 - WARNING - terminating the program, becasue: play finished
-2020-05-26 15:14:39,526 - root - 3069553360 - WARNING - terminating the program, becasue: play finished
-2020-05-26 15:14:44,307 - root - 3069553360 - WARNING - terminating the program, becasue: play finished
-2020-05-26 15:14:57,127 - root - 3069553360 - WARNING - terminating the program, becasue: play finished
-2020-05-26 15:14:57,156 - root - 3069553360 - INFO - empty queue, re-populating
-2020-05-26 15:15:11,849 - root - 3069553360 - WARNING - faled to check player status: Message recipient disconnected from message bus without replying
-2020-05-26 15:15:11,850 - root - 3069553360 - ERROR - pause failed becasue failed to check pause status from dbus
-2020-05-26 15:15:11,893 - root - 3069553360 - WARNING - terminating the program, becasue: play finished
-2020-05-26 15:15:21,551 - root - 3069553360 - WARNING - terminating the program, becasue: play finished
-2020-05-26 15:15:26,338 - root - 3069553360 - WARNING - terminating the program, becasue: play finished
-2020-05-26 15:15:39,147 - root - 3069553360 - WARNING - terminating the program, becasue: play finished
-2020-05-26 15:15:39,160 - root - 3069553360 - INFO - empty queue, re-populating
-2020-05-26 15:15:53,860 - root - 3069553360 - WARNING - faled to check player status: Message recipient disconnected from message bus without replying
-2020-05-26 15:15:53,860 - root - 3069553360 - ERROR - pause failed becasue failed to check pause status from dbus
-2020-05-26 15:15:53,893 - root - 3069553360 - WARNING - terminating the program, becasue: play finished
-2020-05-26 15:16:03,539 - root - 3069553360 - WARNING - terminating the program, becasue: play finished
-2020-05-26 15:16:08,322 - root - 3069553360 - WARNING - terminating the program, becasue: play finished
-2020-05-26 15:16:21,138 - root - 3069553360 - WARNING - terminating the program, becasue: play finished
-2020-05-26 15:16:21,168 - root - 3069553360 - INFO - empty queue, re-populating
-2020-05-26 15:16:35,893 - root - 3069553360 - WARNING - faled to check player status: Message recipient disconnected from message bus without replying
-2020-05-26 15:16:35,894 - root - 3069553360 - ERROR - pause failed becasue failed to check pause status from dbus
-2020-05-26 15:16:35,926 - root - 3069553360 - WARNING - terminating the program, becasue: play finished
-2020-05-26 15:16:45,601 - root - 3069553360 - WARNING - terminating the program, becasue: play finished
-2020-05-26 15:16:50,403 - root - 3069553360 - WARNING - terminating the program, becasue: play finished
-2020-05-26 15:17:03,212 - root - 3069553360 - WARNING - terminating the program, becasue: play finished
-2020-05-26 15:17:03,242 - root - 3069553360 - INFO - empty queue, re-populating
-2020-05-26 15:17:17,976 - root - 3069553360 - WARNING - faled to check player status: Message recipient disconnected from message bus without replying
-2020-05-26 15:17:17,977 - root - 3069553360 - ERROR - pause failed becasue failed to check pause status from dbus
-2020-05-26 15:17:18,013 - root - 3069553360 - WARNING - terminating the program, becasue: play finished
+2020-06-11 20:28:58,479 - OMXlogger - 3070163664 - WARNING - terminating the program, becasue: play finished
+2020-06-11 20:29:03,271 - OMXlogger - 3070163664 - WARNING - terminating the program, becasue: play finished
+2020-06-11 20:29:16,067 - OMXlogger - 3070163664 - WARNING - terminating the program, becasue: play finished
+2020-06-11 20:29:16,096 - root - 3070163664 - INFO - empty queue, re-populating
+2020-06-11 20:29:30,771 - OMXlogger - 3070163664 - WARNING - faled to check player status: Message recipient disconnected from message bus without replying
+2020-06-11 20:29:30,774 - OMXlogger - 3070163664 - ERROR - pause failed becasue failed to check pause status from dbus, assuming the program has ended
+2020-06-11 20:29:30,804 - OMXlogger - 3070163664 - WARNING - terminating the program, becasue: play finished
+2020-06-11 20:29:40,467 - OMXlogger - 3070163664 - WARNING - terminating the program, becasue: play finished
+2020-06-11 20:29:45,278 - OMXlogger - 3070163664 - WARNING - terminating the program, becasue: play finished
+2020-06-11 20:29:58,087 - OMXlogger - 3070163664 - WARNING - terminating the program, becasue: play finished
+2020-06-11 20:29:58,116 - root - 3070163664 - INFO - empty queue, re-populating
+2020-06-11 20:30:12,842 - OMXlogger - 3070163664 - WARNING - faled to check player status: Message recipient disconnected from message bus without replying
+2020-06-11 20:30:12,843 - OMXlogger - 3070163664 - ERROR - pause failed becasue failed to check pause status from dbus, assuming the program has ended
+2020-06-11 20:30:12,886 - OMXlogger - 3070163664 - WARNING - terminating the program, becasue: play finished
+2020-06-11 20:30:22,557 - OMXlogger - 3070163664 - WARNING - terminating the program, becasue: play finished

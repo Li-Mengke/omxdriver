@@ -5,12 +5,8 @@ import os
 class Error_Handler():
 
     def __init__(self):
-        logging.basicConfig(filename='log/app.log', filemode = 'a', format = '%(name)s - $(levelname)s - %(message)s')
-        logging.basicConfig(level = logging.DEBUG)
-        self.logger = logging.getLogger('logger')
+        logging.basicConfig(filename='log/app.log', filemode = 'a', format = '%(name)s - %(asctime)s - %(levelname)s - %(message)s', level = logging.DEBUG)
 
-    def get_logger(self):
-        return self.logger
 
     def report_issue(self, message, file = None):
         raise NotImplementedError
