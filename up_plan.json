@@ -1,0 +1,31 @@
+[
+   {
+      "materialName":"奥特莱斯.mp4","planId":"422678911026073600","url":"http://139.196.230.59:9000/shouliankeji/20200519/奥特莱斯.mp4","tasks":
+      [
+         {
+            "downTime":"2020-05-30 16:00:00","upTime":"2020-05-19 16:00:00","isMonitor":1,"monitorType":"1,2,3","taskType":0,"monitorPeriod":"1","pointId":"421093945989271552","planId":"422678911026073600","playSchedule":"0","taskId":"422678911898488832","mac":"mac-1","monitorRate":"1"
+         }
+
+      ]
+
+   },{
+      "materialName":"奥特莱斯.mp4","planId":"423434227690901504","url":"http://139.196.230.59:9000/shouliankeji/20200519/奥特莱斯.mp4","tasks":
+      [
+         {
+            "downTime":"2020-06-11 00:00:00","upTime":"2020-05-22 00:00:00","isMonitor":1,"monitorType":"1,2,3","taskType":0,"monitorPeriod":"1","pointId":"421093945989271552","planId":"423434227690901504","playSchedule":"4","taskId":"423434228085166080","mac":"mac-1","monitorRate":"1"
+         }
+
+      ]
+
+   },{
+      "materialName":"0430加勒比.mp4","planId":"429913823990910976","url":"http://139.196.230.59:9000/shouliankeji/20200514/0430加勒比.mp4","tasks":
+      [
+         {
+            "downTime":"2020-06-11 00:00:00","upTime":"2020-06-09 00:00:00","isMonitor":0,"monitorType":"","taskType":0,"monitorPeriod":"1","pointId":"421093945989271552","planId":"429913823990910976","playSchedule":"11111111111111111111111111111111","taskId":"429913825324699648","mac":"mac-1","monitorRate":"1"
+         }
+
+      ]
+
+   }
+
+]

@@ -4,13 +4,14 @@ import requests
 import json
 import os
 from log_manager import Error_Handler
+import sqlite3
 
 
 class MQManager():
     '''this class monitors the server MQ and when message received, react.
     It also pushes data back to the server'''
 
-    def __init__(self, dict, log_manager):
+    def __init__(self, dict):
         '''
         initiate the mq manager and its variables.  Mostly it loads the settings.
         this class should be unique in the running program(one instance)
@@ -23,7 +24,6 @@ class MQManager():
             var = yaml.load(f, Loader=yaml.SafeLoader)
 
         #setting the variables
-        self.error_hander = log_manager
         self.host_name = var['rabbitmq']['host']
         self.port = var['rabbitmq']['port']
         self.user_name = var['rabbitmq']['username']
@@ -57,9 +57,24 @@ class MQManager():
         :param body:
         :return:
         '''
+
+        #first write to database
+        try:
+            conn = sqlite3.connect(r'omxdriver/db/app.db')
+
+        raise NotImplementedError
+
+        #then decode the message and start download
+        raise NotImplementedError
+
+        #now change file settings and restart the program
+        raise NotImplementedError
+
+
         with open("mqresult.txt", 'a') as f:
             f.write(body.decode("utf-8"))
         print(body)
+
 
     def getMacAddress(self):
         '''
