@@ -1,0 +1,37 @@
+This file explains the difference in development code and production code
+
+1. in mq_manager, change mac_address line from default to actual MAC
+2. in omxplayer, change omxcommand to full screen
+3. database address is now fixed, should be a pass-in variable in production code
+
+
+
+
+
+hardcoded variables:
+1. OMXcommand in omxplayer
+2. db creationg command in db_manager
+
+task.db variables:
+            _id INT,
+            planId INT(18),
+            materialName TEXT,
+            materialId INT,
+            materialType TEXT,
+            videoDuration INT,
+            url VARCHAR(256),
+            height INT,
+            width INT,
+            upTime TEXT,
+            downTime TEXT,
+            isMonitor INT,
+            upMonitor INT,
+            dailyMonitor INT,
+            downMonitor INT,
+            pointId INT(18),
+            taskId INT(18),
+            playSchedule VARCHAR(32),
+            mac CHAR(17),
+            monitorPeriod INT,
+            monitorRate INT
+taskType, materialName, planId, materialType, materialId, videoDuration, url, height, width, upTime, downTime, isMonitor, upMonitor, dailyMonitor, downMonitor, pointId, TaskId, playSchedule, mac, monitorPeriod, monitorFrequency

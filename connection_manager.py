@@ -3,7 +3,7 @@ import yaml
 import requests
 import json
 import os
-from log_manager import Error_Handler
+from error_manager import Error_Handler
 import sqlite3
 
 
@@ -29,46 +29,49 @@ class MQManager():
         self.user_name = var['rabbitmq']['username']
         self.password = var['rabbitmq']['password']
 
-        self.MAC_Address = 'mac-123456'
+        self.MAC_Address = 'mac-3'
         # self.MAC_Address = self.getMacAddress()
-        self.queue_name = self.MAC_Address + '_queue'
+        self.queue_name = self.MAC_Address + '-queue'
         self.exchangeName = "qutou.osp-exchange"
         self.routing_key = self.MAC_Address + '-routingKey'
-        self.logger = self.error_handler.get_logger()
+        self.error_handler = Error_Handler('MQ_handler')
 
     def monitor(self):
         #connect to MQ server, and then start monitoring. This should be called in its own thread
-        credentials = pika.PlainCredentials(user_name, password)
-        parameters = pika.ConnectionParameters(host = host_name, port = port, virtual_host='/', credentials = credentials)
-        connection = pika.BlockingConnection(parameters)
-        channel = connection.channel()
-        channel.basic_consume(queue = queue_name, on_message_callback = self.callback, auto_ack= True)
+        self.credentials = pika.PlainCredentials(self.user_name, self.password)
+        self.parameters = pika.ConnectionParameters(host = self.host_name, port = self.port, virtual_host='/', credentials = self.credentials)
+        self.connection = pika.BlockingConnection(self.parameters)
+        self.channel = self.connection.channel()
+        self.channel.basic_consume(queue = self.queue_name, on_message_callback = self.callback, auto_ack= True)
 
 
         #start monitoring MQ server
-        channel.start_consuming()
+        self.channel.start_consuming()
 
-    def callback(ch, method, properties, body):
+    def callback(self, ch, method, properties, body):
         '''
         this method is the call back when a message from MQ is received.
         Do somgthing about the received message
+        :ch
         :param method:
         :param properties:
         :param body:
         :return:
         '''
+        #convert message received into a dictionary file
+        data = json.loads(body.decode('utf-8'))
+        print(data)
 
-        #first write to database
-        try:
-            conn = sqlite3.connect(r'omxdriver/db/app.db')
+        #loop through the received messages and execute these commands
+        for item in data:
+            for task in item['content']:
+                raise NotImplementedError
 
-        raise NotImplementedError
 
-        #then decode the message and start download
-        raise NotImplementedError
 
         #now change file settings and restart the program
-        raise NotImplementedError
+
+        self.error_handler.graceful_restart()
 
 
         with open("mqresult.txt", 'a') as f:
@@ -91,10 +94,11 @@ class MQManager():
         :return:
         '''
         attempts = 0
+        header = requests.head(url)
+        fileLength = int(header.headers['Content-Length'])
+        fileName ='video/'+fileName
         while attempts < 10:
             if os.path.exists(fileName):
-                header = requests.head(url)
-                fileLength = int(header.headers['Content-Length'])
                 if fileLength == os.path.getsize(fileName):
                     return True
                 else:
@@ -140,11 +144,68 @@ class MQManager():
 
 
 
-with open('mqresult.txt') as f:
-    data = json.load(f)
+# with open('mqresult.txt') as f:
+#     data = json.load(f)
+#
+# url = data['content']['putintoTask']['url']
+# fileName = data['content']['putintoTask']['materialName']
+#
+# result = download(url, fileName)
+# print(result)
 
-url = data['content']['putintoTask']['url']
-fileName = data['content']['putintoTask']['materialName']
 
-result = download(url, fileName)
-print(result)
+class USBMonitor():
+    def __init__(self):
+        raise NotImplementedError
+
+    def monitor(self):
+        raise NotImplementedError
+
+    def callback(self):
+        # convert message received into a dictionary
+        data = json.loads(body.decode('utf-8'))
+        print(data)
+
+        # loop through the received messages and execute these commands
+        for plan in data:
+            for t in plan['tasks']:
+                monitor = t['monitorType'].split(',')
+                if '1' in monitor:
+                    upMonitor = 1
+                else:
+                    upMonitor = 0
+
+                if '2' in monitor:
+                    dailyMonitor = 1
+                else:
+                    dailyMonitor = 0
+
+                if '3' in monitor:
+                    downMonitor = 1
+                else:
+                    downMonitor = 0
+
+                task = Task(materialName=plan['materialName'], planId=plan['planId'], url=plan['url'],
+                            upTime=t['upTime'], downTime=t['downTime'], isMonitor=t['isMonitor'],
+                            upMonitor=upMonitor, dailyMonitor=dailyMonitor, downMonitor=downMonitor,
+                            taskType=t['taskType'], pointId=t['pointId'], playSchedule=t['playSchedule'],
+                            taskId=t['taskId'], mac=t['mac'], monitorPeriod=t['monitorPeriod'],
+                            monitorRate=t['monitorRate'])
+
+                # save loaded command into database
+                db.execute("""INSERT INTO localtask VALUES(
+                                      :materialName, :planId, :url, :upTime, :downTime, :isMonitor, :upMonitor, :dailyMonitor, 
+                                      :downMonitor, :taskType, :taskType, :pointId, :playSchedule, :mac, :monitorPeriod, :monitorRate)
+                                    """, task.getTaskDict())
+
+                # execute task
+                task.execute(self)
+
+        # now change file settings and restart the program
+
+        self.error_handler.graceful_restart()
+
+        raise NotImplementedError
+
+    def copy(self):
+        raise NotImplementedError
