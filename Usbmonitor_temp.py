@@ -15,47 +15,6 @@ def gui(root_title,root_label,geometry):
     main_frame.pack(expand = 'yes')
     root_window.mainloop()
 
-def temp():
-    if self.a > 0:
-        gui('完成', '已经完成复制，可以取出U盘', '400x300')
-        continue
-
-    # 将需要复制位置的路径组合，命名为时间
-    name_folder = os.path.join(self.target_folder, time.strftime('%Y-%m-%d %H-%M-%S', time.localtime()))
-    # 创建路径
-    os.mkdir(name_folder)
-
-    # 扫描文件夹
-    try:
-        for root, dirs, files in os.walk(self.scan_folder):
-            if self.a == 0:
-                print('start copy usb is {}'.format(root[0]))
-            self.a += 1
-            # print(a)
-            if len(files) == 0:
-                continue
-
-            for name in files:
-
-                file = os.path.join(root, name)
-                if regex_filename.match(file) and os.path.getsize(file) < 1024 * 1024 * 2:
-                    file_num += 1
-
-                    print(file)
-                    file_create_time = time.ctime(os.path.getctime(file))
-                    file_create_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(os.path.getctime(file)))
-
-                    shutil.copy2(file, name_folder)
-                else:
-                    continue
-        if file_num == 0:
-            print('usb is not found file')
-            continue
-        print('共下载{}份文件---用时:{}s'.format(file_num, time.time() - start_time))
-        print(self.a)
-    except Exception:
-        print('here needs a Error-log')
-        continue
 
 class Usb_monitor(object):
 
@@ -116,9 +75,46 @@ class Usb_monitor(object):
             self.create_report_folder()
 
 
+            if self.a > 0:
+                gui('完成', '已经完成复制，可以取出U盘', '400x300')
+                continue
 
+            # 将需要复制位置的路径组合，命名为时间
+            name_folder = os.path.join(self.target_folder, time.strftime('%Y-%m-%d %H-%M-%S', time.localtime()))
+            # 创建路径
+            os.mkdir(name_folder)
 
+            # 扫描文件夹
+            try:
+                for root, dirs, files in os.walk(self.scan_folder):
+                    if self.a == 0:
+                        print('start copy usb is {}'.format(root[0]))
+                    self.a += 1
+                    #print(a)
+                    if len(files) == 0:
+                        continue
 
+                    for name in files:
+
+                        file = os.path.join(root, name)
+                        if regex_filename.match(file) and os.path.getsize(file) < 1024 * 1024 * 2:
+                            file_num += 1
+
+                            print(file)
+                            file_create_time = time.ctime(os.path.getctime(file))
+                            file_create_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(os.path.getctime(file)))
+
+                            shutil.copy2(file, name_folder)
+                        else:
+                            continue
+                if file_num == 0:
+                    print('usb is not found file')
+                    continue
+                print('共下载{}份文件---用时:{}s'.format(file_num, time.time() - start_time))
+                print(self.a)
+            except Exception:
+                print('here needs a Error-log')
+                continue
 
 
 
