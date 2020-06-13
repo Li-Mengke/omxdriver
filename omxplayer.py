@@ -9,15 +9,14 @@ import logging
 
 class OmxDriver():
 
-    omx_command = "omxplayer --no-keys --win '0,0,1920,1080'"
+    omx_command = "omxplayer --no-keys --win '0,0,1080,720'"
     # omx_command = 'omxplayer --no-keys'
 
-    def __init__(self, widget, options = None):
-        
-        #get self.logger
-        self.logger = logging.getLogger('logger')
+    def __init__(self, options = None):
+
+        self.logger = logging.getLogger('OMXlogger')
+
         #initiate passed-in parameters
-        self.widget = widget
 
         #initiate some object status parameters
         self.started = False
@@ -89,9 +88,12 @@ class OmxDriver():
         self.load(cmd_options = cmd_options, track = track)
         self.paused = False
         while self.paused == False:
+
             position = self.get_position()
+            print(position)
             if position > -200000:
                 self.pause()
+                self.paused = True
 
 
 
@@ -124,7 +126,7 @@ class OmxDriver():
                     self.paused = True
                     return True
                 if paused == None:
-                    self.logger.error('pause failed becasue failed to check pause status from dbus')
+                    self.logger.error('pause failed becasue failed to check pause status from dbus, assuming the program has ended')
                     return False
             return False
         else:
@@ -233,8 +235,8 @@ class OmxDriver():
                 return None
             return result
         else:
-            self.warning('process is not running, cannot test player')
-            return None
+            self.logger.warning('process is not running, cannot test player')
+            return True
 
     def get_position(self):
         position_ms = -1
@@ -302,7 +304,7 @@ class OmxDriver():
                     file = open(bus_pid_filename, 'r')
                     bus_pid = file.read().rstrip()
                     if bus_pid == '':
-                        self.logger.info('attempt ' + str(attemps) + ' resulted in an empty dbus pid read')
+                        self.logger.info('attempt ' + str(attempts) + ' resulted in an empty dbus pid read')
                         return False
                     else:
                         os.environ["DBUS_SESSION_BUS_ADDRESS"] = bus_address
@@ -318,7 +320,7 @@ class OmxDriver():
                 self.dbus_props = dbus.Interface(omx_object, "org.freedesktop.DBus.Properties")
                 self.dbus_player = dbus.Interface(omx_object, "org.mpris.MediaPlayer2.Player")
             except dbus.exceptions.DBusException as e:
-                #logging.error('attempt ' + str(attempts) + ' failed to connect to dbus: ' + e.get_dbus_message())
+                #log.error('attempt ' + str(attempts) + ' failed to connect to dbus: ' + e.get_dbus_message())
                 return False
         self.dbus_connected = True
         return True

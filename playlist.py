@@ -40,7 +40,7 @@ class PlayList():
             # qisfull = self.queue.full()
             # qisempty = self.queue.empty()
             # size = self.queue.qsize()
-            # logging.error('an error occured when trying to get item from queue, queue empty is '
+            # log.error('an error occured when trying to get item from queue, queue empty is '
             #               + str(qisfull) + ' empty status is ' + str(qisempty) + 'size now is ' + str(size))
 
     def dump(self):

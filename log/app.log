@@ -1,3 +1,5 @@
+<<<<<<< HEAD
+<<<<<<<< HEAD:log/app.log
 2020-05-26 15:12:33,475 - root - 3069553360 - WARNING - terminating the program, becasue: play finished
 2020-05-26 15:12:38,261 - root - 3069553360 - WARNING - terminating the program, becasue: play finished
 2020-05-26 15:12:51,073 - root - 3069553360 - WARNING - terminating the program, becasue: play finished
@@ -71,3 +73,23 @@ Traceback (most recent call last):
 TimeoutError: [Errno 60] Operation timed out
 pika.adapters.base_connection - $(levelname)s - connection_lost: StreamLostError: ("Stream connection lost: TimeoutError(60, 'Operation timed out')",)
 pika.adapters.blocking_connection - $(levelname)s - Unexpected connection close detected: StreamLostError: ("Stream connection lost: TimeoutError(60, 'Operation timed out')",)
+========
+2020-06-11 20:28:58,479 - OMXlogger - 3070163664 - WARNING - terminating the program, becasue: play finished
+2020-06-11 20:29:03,271 - OMXlogger - 3070163664 - WARNING - terminating the program, becasue: play finished
+2020-06-11 20:29:16,067 - OMXlogger - 3070163664 - WARNING - terminating the program, becasue: play finished
+2020-06-11 20:29:16,096 - root - 3070163664 - INFO - empty queue, re-populating
+2020-06-11 20:29:30,771 - OMXlogger - 3070163664 - WARNING - faled to check player status: Message recipient disconnected from message bus without replying
+2020-06-11 20:29:30,774 - OMXlogger - 3070163664 - ERROR - pause failed becasue failed to check pause status from dbus, assuming the program has ended
+2020-06-11 20:29:30,804 - OMXlogger - 3070163664 - WARNING - terminating the program, becasue: play finished
+2020-06-11 20:29:40,467 - OMXlogger - 3070163664 - WARNING - terminating the program, becasue: play finished
+2020-06-11 20:29:45,278 - OMXlogger - 3070163664 - WARNING - terminating the program, becasue: play finished
+2020-06-11 20:29:58,087 - OMXlogger - 3070163664 - WARNING - terminating the program, becasue: play finished
+2020-06-11 20:29:58,116 - root - 3070163664 - INFO - empty queue, re-populating
+2020-06-11 20:30:12,842 - OMXlogger - 3070163664 - WARNING - faled to check player status: Message recipient disconnected from message bus without replying
+2020-06-11 20:30:12,843 - OMXlogger - 3070163664 - ERROR - pause failed becasue failed to check pause status from dbus, assuming the program has ended
+2020-06-11 20:30:12,886 - OMXlogger - 3070163664 - WARNING - terminating the program, becasue: play finished
+2020-06-11 20:30:22,557 - OMXlogger - 3070163664 - WARNING - terminating the program, becasue: play finished
+>>>>>>>> 2cd9086109c87a3b75d2fda9bc228fcd77379338:app.log
+=======
+logger - 2020-06-11 17:01:36,300 - WARNING - something
+>>>>>>> 2cd9086109c87a3b75d2fda9bc228fcd77379338

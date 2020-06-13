@@ -23,8 +23,8 @@ class Player():
             self.play_loop(self.current)
         else:
             self.list.populate(self.track_list)
-            self.current = OmxDriver('widget', '')
-            self.next = OmxDriver('widget', '')
+            self.current = OmxDriver()
+            self.next = OmxDriver()
             self.current.load(self.get_video_path(self.video_dir, self.list.get()))
             self.next.load_and_pause(self.get_video_path(self.video_dir, self.list.get()))
             self.continuous_play()
@@ -39,7 +39,7 @@ class Player():
                 self.previous.terminate('play finished')
                 self.current = self.next
                 # self.next = self.previous
-                self.next = OmxDriver('widget', '')
+                self.next = OmxDriver()
                 try:
                     next_track = self.list.get()
                 except Empty:
