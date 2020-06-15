@@ -36,7 +36,7 @@ class Usb_monitor(object):
                 else:
                     print('not in')
 
-    # 只获取第一个可移动U盘路径
+    # 获取可移动U盘路径
     import psutil
     def get_dir_of_udisk(self):
         if self.system_name == 'Windows':
@@ -109,27 +109,32 @@ class Usb_monitor(object):
                         # dlist 是上刊名列表
                         self.dlist.append(content[l]['materialName'])
 
-    def scan_Task(self):
-
+    def put_into_task(self):
         scan_folder = self.dir_of_udisk + r'Task\\'
         for root, dirs, files in os.walk(scan_folder):
             for name in self.plist:
                 if name in files:
                     self.file_num += 1
                     print(self.file_num)
-                    if not (os.path.exists(r'F:\linshiwenjianjia')):
-                        os.mkdir(r'F:\linshiwenjianjia')
-                    name_folder = r'F:\linshiwenjianjia'
+                    if not (os.path.exists(r'F:\Task')):
+                        os.mkdir(r'F:\Task')
+                        if not (os.path.exists(r'F:\Task\video')):
+                            os.mkdir(r'F:\Task\video')
+                    name_folder = r'F:\Task\video'
                     shutil.copy2(scan_folder+'video\\'+name,name_folder)
+        thistime = '复制已经完成---用时:{}s'.format(time.time() - start_time)
 
-    def scan_pi(self):
-        scan_folder = r'F:\linshiwenjianjia'
+        gui('复制完成',thistime,'700x500')
+
+    def down_task(self):
+        scan_folder = r'F:\Task\video'
         for root, dirs, files in os.walk(scan_folder):
-            for name in self.plist:
+            for name in self.dlist:
                 if name in files:
-                    self.file_num += 1
-                    print(self.file_num)
-                os.remove(scan_folder+'\\'+name)
+                    target_name = scan_folder+'\\'+name
+                if os.path.exists(target_name):
+                    print('daozhe')
+                    os.remove(target_name)
 
 
                 '''
@@ -147,14 +152,16 @@ class Usb_monitor(object):
 
                         shutil.copy2(file,name_folder)
 '''
-            #if self.file_num == 0:
-             #   print('usb is not found file')
-            #print('共下载{}份文件---用时:{}s'.format(self.file_num, time.time() - start_time))
+            if self.file_num == 0:
+                print('usb is not found file')
        # except Exception:
         #    print('here needs a Error-log')
 
+    def monitor_task(self):
+        raise NotImplementedError
+
     def db_create_table(self):
-        pass
+        raise NotImplementedError
 
 
     def usb_monitor(self):
@@ -166,6 +173,7 @@ class Usb_monitor(object):
             global start_time
             start_time = time.time()  # 开始时间
             self.system_name = 'Windows'
+            self.Mac_name()
 
             #u盘检测
             while self.active2:
