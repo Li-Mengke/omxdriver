@@ -155,12 +155,17 @@ class MQManager():
 # print(result)
 
 
-class USBMonitor():
+class Usb_monitor(object):
     def __init__(self):
-        raise NotImplementedError
+        self.file_num = 0
+        self.active = True
+        self.active1 = True
+        self.active2 = True
+        # self.regex_filename = re.compile(r'(.*json$)|(.*log$)')
 
     def monitor(self):
-        raise NotImplementedError
+        Um = Usb_monitor()
+        Um.usb_monitor()
 
     def callback(self):
         # convert message received into a dictionary

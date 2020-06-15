@@ -1,0 +1,44 @@
+[
+   {
+      "messageType":"putinto-task","content":
+      [
+         {
+            "downTime":"2020-06-21 16:00:00","materialType":0,"playSchedule":"3","materialId":"421460298256486400","equipmentType":1,"url":"http://139.196.230.59:9000/shouliankeji/20200516/0516加勒比.mp4","upTime":"2020-05-19 16:00:00","materialName":"0516加勒比.mp4","equipmentMac":"kz-mac-4","isMonitor":1,"taskType":0,"videoDuration":10,"pointId":"421262369214304256","width":"1920","planId":"422638174620225536","pointStatus":0,"taskId":"422638178730643456","fileType":".mp4","height":"1080"
+         },{
+            "downTime":"2020-05-26 16:00:00","materialType":0,"playSchedule":"11111111111111111111111111111111","materialId":"421460298256486400","equipmentType":1,"url":"http://139.196.230.59:9000/shouliankeji/20200516/0516加勒比.mp4","upTime":"2020-05-19 16:00:00","materialName":"0516加勒比.mp4","equipmentMac":"kz-mac-4","isMonitor":0,"taskType":0,"videoDuration":10,"pointId":"421262369214304256","width":"1920","planId":"422642760470892544","pointStatus":0,"taskId":"422642762538684416","fileType":".mp4","height":"1080"
+         },{
+            "downTime":"2020-05-31 16:00:00","materialType":0,"playSchedule":"11111111111111111111111111111111","materialId":"421460298256486400","equipmentType":1,"url":"http://139.196.230.59:9000/shouliankeji/20200516/0516加勒比.mp4","upTime":"2020-05-20 16:00:00","materialName":"0516加勒比.mp4","equipmentMac":"kz-mac-4","isMonitor":1,"taskType":0,"videoDuration":10,"pointId":"421262369214304256","width":"1920","planId":"422914198616543232","pointStatus":0,"taskId":"422914200826941440","fileType":".mp4","height":"1080"
+         },{
+            "downTime":"2020-05-31 16:00:00","materialType":0,"playSchedule":"11111111111111111111111111111111","materialId":"421460298256486400","equipmentType":1,"url":"http://139.196.230.59:9000/shouliankeji/20200516/0516加勒比.mp4","upTime":"2020-05-20 16:00:00","materialName":"0516加勒比.mp4","equipmentMac":"kz-mac-4","isMonitor":1,"taskType":0,"videoDuration":10,"pointId":"421262369214304256","width":"1920","planId":"422914207839817728","pointStatus":0,"taskId":"422914210176045056","fileType":".mp4","height":"1080"
+         },{
+            "downTime":"2020-06-03 16:00:00","materialType":0,"playSchedule":"11111111111111111111111111111111","materialId":"421460298256486400","equipmentType":1,"url":"http://139.196.230.59:9000/shouliankeji/20200516/0516加勒比.mp4","upTime":"2020-05-20 16:00:00","materialName":"0516加勒比.mp4","equipmentMac":"kz-mac-4","isMonitor":1,"taskType":0,"videoDuration":10,"pointId":"421262369214304256","width":"1920","planId":"422929967173734400","pointStatus":0,"taskId":"422929969686122496","fileType":".mp4","height":"1080"
+         },{
+            "downTime":"2020-06-03 16:00:00","materialType":0,"playSchedule":"11111111111111111111111111111111","materialId":"421460298256486400","equipmentType":1,"url":"http://139.196.230.59:9000/shouliankeji/20200516/0516加勒比.mp4","upTime":"2020-05-20 16:00:00","materialName":"0516加勒比.mp4","equipmentMac":"kz-mac-4","isMonitor":1,"taskType":0,"videoDuration":10,"pointId":"421262369214304256","width":"1920","planId":"422929971544199168","pointStatus":0,"taskId":"422929975004499968","fileType":".mp4","height":"1080"
+         },{
+            "downTime":"2020-06-16 16:00:00","materialType":0,"playSchedule":"11111111111111111111111111111111","materialId":"421460298256486400","equipmentType":1,"url":"http://139.196.230.59:9000/shouliankeji/20200516/0516加勒比.mp4","upTime":"2020-05-20 16:00:00","materialName":"0516加勒比.mp4","equipmentMac":"kz-mac-4","isMonitor":1,"taskType":0,"videoDuration":10,"pointId":"421262369214304256","width":"1920","planId":"422931428909649920","pointStatus":0,"taskId":"422931430914527232","fileType":".mp4","height":"1080"
+         },{
+            "downTime":"2020-05-21 16:00:00","materialType":0,"playSchedule":"11111111111111111111111111111111","materialId":"421460298256486400","equipmentType":1,"url":"http://139.196.230.59:9000/shouliankeji/20200516/0516加勒比.mp4","upTime":"2020-05-20 16:00:00","materialName":"0516加勒比.mp4","equipmentMac":"kz-mac-4","isMonitor":1,"taskType":0,"videoDuration":10,"pointId":"421262369214304256","width":"1920","planId":"422971746182893568","pointStatus":0,"taskId":"422971748292628480","fileType":".mp4","height":"1080"
+         },{
+            "downTime":"2020-06-24 16:00:00","materialType":0,"playSchedule":"11111111111111111111111111111111","materialId":"421460298256486400","equipmentType":1,"url":"http://139.196.230.59:9000/shouliankeji/20200516/0516加勒比.mp4","upTime":"2020-05-20 16:00:00","materialName":"0516加勒比.mp4","equipmentMac":"kz-mac-4","isMonitor":1,"taskType":0,"videoDuration":10,"pointId":"421262369214304256","width":"1920","planId":"423026031193100288","pointStatus":0,"taskId":"423026033864871936","fileType":".mp4","height":"1080"
+         },{
+            "downTime":"2020-06-11 00:00:00","materialType":0,"playSchedule":"0","materialId":"421460298256486400","equipmentType":1,"url":"http://139.196.230.59:9000/shouliankeji/20200516/0516加勒比.mp4","upTime":"2020-05-22 00:00:00","materialName":"0516加勒比.mp4","equipmentMac":"kz-mac-4","isMonitor":1,"taskType":0,"videoDuration":10,"pointId":"421262369214304256","width":"1920","planId":"423432182476967936","pointStatus":0,"taskId":"423432184423124992","fileType":".mp4","height":"1080"
+         }
+
+      ]
+
+   },{
+      "messageType":"monitor-task","content":
+      [
+         {
+            "monitorType":1,"monitorId":"422929969702899712","pointId":"421262369214304256","taskId":"422929969686122496"
+         },{
+            "monitorType":2,"monitorId":"422929969744842752","pointId":"421262369214304256","taskId":"422929969686122496"
+         },{
+            "monitorType":3,"monitorId":"422929969795174400","monitorPeriod":"1","pointId":"421262369214304256","taskId":"422929969686122496","monitorRate":"1"
+         }
+
+      ]
+
+   }
+
+]

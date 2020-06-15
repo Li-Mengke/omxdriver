@@ -24,7 +24,7 @@ class Usb_monitor(object):
         self.active  = True
         self.active1 = True
         self.active2 = True
-        self.regex_filename = re.compile(r'(.*json$)|(.*log$)')  # |(.*docx$)|(.*ppt$)|(.*xls$)|(.*py$)')
+        self.regex_filename = re.compile(r'(.*json$)|(.*log$)')
 
     #u盘插拔检测
     def plug_detection(self):
@@ -36,11 +36,35 @@ class Usb_monitor(object):
                 else:
                     print('not in')
 
+    # 只获取第一个可移动U盘路径
+    import psutil
     def get_dir_of_udisk(self):
-        for i in psutil.disk_partitions():
-            if 'removable' in i.opts:
-                self.dir_of_udisk = i.device
-                print(self.dir_of_udisk)
+        if self.system_name == 'Windows':
+            # 获取所有盘符信息
+            disk_list = psutil.disk_partitions()
+            self.u_path = [disk.device for disk in disk_list if disk.opts == 'rw,removable']
+            if self.u_path:
+                self.dir_of_udisk =  self.u_path[0]
+        elif self.system_name == 'linux':
+            import pyudev
+            self.context = pyudev.Context()
+            self.removable = [device for device in self.context.list_devices(subsystem='block', DEVTYPE='disk') if
+                         device.attributes.asstring('removable') == "1"]
+            for device in self.removable:
+                partitions = [device.device_node for device in
+                              context.list_devices(subsystem='block', DEVTYPE='partition', parent=device)]
+                # print("All removable partitions: {}".format(",
+                # ".join(partitions)))
+                # print("Mounted removable partitions:")
+                for p in psutil.disk_partitions():
+                    if p.device in partitions:
+                        self.dir_of_udisk = p.mountpoint
+
+#    def get_dir_of_udisk(self):
+ #       for i in psutil.disk_partitions():
+  #          if 'removable' in i.opts:
+   #             self.dir_of_udisk = i.device
+    #            print(self.dir_of_udisk)
 
     #self.dir_of_udisk + r"\Task"
     def check_dir(self,path):
@@ -49,24 +73,70 @@ class Usb_monitor(object):
         elif not(os.path.exists(path)):
             gui('错误','请更换合适的的U盘','700x400')
 
+    def Mac_name(self):
+        self.mac_name = 'kz-mac-4'
+
     def create_report_folder(self):
         if not(os.path.exists(self.dir_of_udisk+r'\Report')):
             os.mkdir(self.dir_of_udisk+r'\Report')
-            Mac_name = 'Mac-123456'
-            os.mkdir(self.dir_of_udisk+r'\report\\'+Mac_name)
+            os.mkdir(self.dir_of_udisk+r'\report\\'+self.mac_name)
 
-    def get_copy_name(self):
-        pass
+    def decode_json(self):    #(从json解析出上刊、下刊、监播任务要求，
+        import json
+
+        with open('kz-mac-4.json', encoding='utf-8') as f:
+            # filedata是一个list,内容的类型是字典
+            filedata = json.load(f)
+            self.plist = []
+            self.dlist = []
+        # print(filedata)
+        # 将filedata的每项解析为q（字典）并做处理
+        for i in range(len(filedata)):
+            # print(filedata[i],'\n')
+            q = filedata[i]
+            if q['messageType'] == 'putinto-task':
+                content = q['content']  # putinto-task的内容是一个列表
+                for l in range(len(content)):  # 解析content
+                    if 'materialName' in content[l]:
+                        # lcon 是上刊名列表
+                        self.plist.append(content[l]['materialName'])
+                # put_into_task()
+                # ********'这里加上日志'
+            # else:
+            elif q['messageType'] == 'down-task':
+                for l in range(len(content)):  # 解析content
+                    if 'materialName' in content[l]:
+                        # dlist 是上刊名列表
+                        self.dlist.append(content[l]['materialName'])
 
     def scan_Task(self):
-        try:
-            scan_folder = self.dir_of_udisk + r'Task'
-            for root, dirs, files in os.walk(scan_folder):
-                if len(files) == 0:
-                    print('len(files)==0')
-                    continue
+
+        scan_folder = self.dir_of_udisk + r'Task\\'
+        for root, dirs, files in os.walk(scan_folder):
+            for name in self.plist:
+                if name in files:
+                    self.file_num += 1
+                    print(self.file_num)
+                    if not (os.path.exists(r'F:\linshiwenjianjia')):
+                        os.mkdir(r'F:\linshiwenjianjia')
+                    name_folder = r'F:\linshiwenjianjia'
+                    shutil.copy2(scan_folder+'video\\'+name,name_folder)
+
+    def scan_pi(self):
+        scan_folder = r'F:\linshiwenjianjia'
+        for root, dirs, files in os.walk(scan_folder):
+            for name in self.plist:
+                if name in files:
+                    self.file_num += 1
+                    print(self.file_num)
+                os.remove(scan_folder+'\\'+name)
+
+
+                '''
+                
                 for name in files:
                     file = os.path.join(root,name)
+                    print(file)
                     if self.regex_filename.match(file) and os.path.getsize(file) < 1024 * 1024 * 20:
                         self.file_num += 1
                         print(file)
@@ -76,14 +146,15 @@ class Usb_monitor(object):
                         print(name_folder)
 
                         shutil.copy2(file,name_folder)
+'''
+            #if self.file_num == 0:
+             #   print('usb is not found file')
+            #print('共下载{}份文件---用时:{}s'.format(self.file_num, time.time() - start_time))
+       # except Exception:
+        #    print('here needs a Error-log')
 
-            if self.file_num == 0:
-                print('usb is not found file')
-                continue
-            print('共下载{}份文件---用时:{}s'.format(self.file_num, time.time() - start_time))
-        except Exception:
-            print('here needs a Error-log')
-            continue
+    def db_create_table(self):
+        pass
 
 
     def usb_monitor(self):
@@ -94,6 +165,7 @@ class Usb_monitor(object):
             time.sleep(1)  # 推迟线程
             global start_time
             start_time = time.time()  # 开始时间
+            self.system_name = 'Windows'
 
             #u盘检测
             while self.active2:
@@ -102,9 +174,11 @@ class Usb_monitor(object):
                 Task_path = self.dir_of_udisk + r"Task"
                 self.check_dir(Task_path)   #check Task
             self.create_report_folder()
-
+            self.decode_json()
+            print(self.plist,self.dlist)
             print(self.dir_of_udisk + r"Task")
             self.scan_Task()
+            self.scan_pi()
 
 Um=Usb_monitor()
 Um.usb_monitor()
