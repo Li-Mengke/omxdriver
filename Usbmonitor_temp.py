@@ -24,7 +24,6 @@ class Usb_monitor(object):
         self.active  = True
         self.active1 = True
         self.active2 = True
-        self.regex_filename = re.compile(r'(.*json$)|(.*log$)')
 
     #u盘插拔检测
     def plug_detection(self):
@@ -37,7 +36,6 @@ class Usb_monitor(object):
                     print('not in')
 
     # 获取可移动U盘路径
-    import psutil
     def get_dir_of_udisk(self):
         if self.system_name == 'Windows':
             # 获取所有盘符信息
@@ -124,7 +122,7 @@ class Usb_monitor(object):
                                 os.mkdir(r'F:\Task\video')
                         name_folder = r'F:\Task\video'
                         shutil.copy2(scan_folder+'video\\'+name,name_folder)
-        gui('复制完成','复制已完成,请取出U盘','700x500')
+
 
     def down_task(self):
         scan_folder = r'F:\Task\video'
@@ -135,16 +133,10 @@ class Usb_monitor(object):
                 if os.path.exists(target_name):
                     print('daozhe')
                     os.remove(target_name)
-    '''
-    def gui_tips(self):
-        title_success = '成功'
-        title_failed = '错误'
-        putintotask_success = '上刊文件已完成复制'
-        downtask_success = '下刊文件已完成删除'
-        if (putintotask_flag is True)and(downtask_flag is True):
-            gui(title_success,putintotask_success+downtask_success,'700x500')
-'''
-'''
+
+
+                '''
+                
                 for name in files:
                     file = os.path.join(root,name)
                     print(file)
@@ -155,8 +147,11 @@ class Usb_monitor(object):
                             os.mkdir(r'F:\linshiwenjianjia')
                         name_folder = r'F:\linshiwenjianjia'
                         print(name_folder)
+
                         shutil.copy2(file,name_folder)
 '''
+
+
     def monitor_task(self):
         raise NotImplementedError
 
@@ -188,6 +183,7 @@ class Usb_monitor(object):
             #print(self.dir_of_udisk + r"Task")
             self.put_into_task()
             self.down_task()
+
 
 Um=Usb_monitor()
 Um.usb_monitor()
