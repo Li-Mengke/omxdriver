@@ -77,9 +77,10 @@ class Usb_monitor(object):
         self.mac_name = 'kz-mac-4'
 
     def create_report_folder(self):
-        if not(os.path.exists(self.dir_of_udisk+r'\Report')):
-            os.mkdir(self.dir_of_udisk+r'\Report')
-            os.mkdir(self.dir_of_udisk+r'\report\\'+self.mac_name)
+        if os.path.exists(self.dir_of_udisk):
+            if not(os.path.exists(self.dir_of_udisk+r'\Report')):
+                os.mkdir(self.dir_of_udisk+r'\Report')
+                os.mkdir(self.dir_of_udisk+r'\report\\'+self.mac_name)
 
     def decode_json(self):    #(从json解析出上刊、下刊、监播任务要求，
         import json
@@ -110,21 +111,20 @@ class Usb_monitor(object):
                         self.dlist.append(content[l]['materialName'])
 
     def put_into_task(self):
-        scan_folder = self.dir_of_udisk + r'Task\\'
-        for root, dirs, files in os.walk(scan_folder):
-            for name in self.plist:
-                if name in files:
-                    self.file_num += 1
-                    print(self.file_num)
-                    if not (os.path.exists(r'F:\Task')):
-                        os.mkdir(r'F:\Task')
-                        if not (os.path.exists(r'F:\Task\video')):
-                            os.mkdir(r'F:\Task\video')
-                    name_folder = r'F:\Task\video'
-                    shutil.copy2(scan_folder+'video\\'+name,name_folder)
-        thistime = '复制已经完成---用时:{}s'.format(time.time() - start_time)
-
-        gui('复制完成',thistime,'700x500')
+        if self.file_num == 0:
+            scan_folder = self.dir_of_udisk + r'Task\\'
+            for root, dirs, files in os.walk(scan_folder):
+                for name in self.plist:
+                    if name in files:
+                        self.file_num += 1
+                        #print(self.file_num)
+                        if not (os.path.exists(r'F:\Task')):
+                            os.mkdir(r'F:\Task')
+                            if not (os.path.exists(r'F:\Task\video')):
+                                os.mkdir(r'F:\Task\video')
+                        name_folder = r'F:\Task\video'
+                        shutil.copy2(scan_folder+'video\\'+name,name_folder)
+        gui('复制完成','复制已完成,请取出U盘','700x500')
 
     def down_task(self):
         scan_folder = r'F:\Task\video'
@@ -135,10 +135,16 @@ class Usb_monitor(object):
                 if os.path.exists(target_name):
                     print('daozhe')
                     os.remove(target_name)
-
-
-                '''
-                
+    '''
+    def gui_tips(self):
+        title_success = '成功'
+        title_failed = '错误'
+        putintotask_success = '上刊文件已完成复制'
+        downtask_success = '下刊文件已完成删除'
+        if (putintotask_flag is True)and(downtask_flag is True):
+            gui(title_success,putintotask_success+downtask_success,'700x500')
+'''
+'''
                 for name in files:
                     file = os.path.join(root,name)
                     print(file)
@@ -149,14 +155,8 @@ class Usb_monitor(object):
                             os.mkdir(r'F:\linshiwenjianjia')
                         name_folder = r'F:\linshiwenjianjia'
                         print(name_folder)
-
                         shutil.copy2(file,name_folder)
 '''
-            if self.file_num == 0:
-                print('usb is not found file')
-       # except Exception:
-        #    print('here needs a Error-log')
-
     def monitor_task(self):
         raise NotImplementedError
 
@@ -174,6 +174,7 @@ class Usb_monitor(object):
             start_time = time.time()  # 开始时间
             self.system_name = 'Windows'
             self.Mac_name()
+            self.file_num = 0
 
             #u盘检测
             while self.active2:
@@ -183,10 +184,10 @@ class Usb_monitor(object):
                 self.check_dir(Task_path)   #check Task
             self.create_report_folder()
             self.decode_json()
-            print(self.plist,self.dlist)
-            print(self.dir_of_udisk + r"Task")
-            self.scan_Task()
-            self.scan_pi()
+            #print(self.plist,self.dlist)
+            #print(self.dir_of_udisk + r"Task")
+            self.put_into_task()
+            self.down_task()
 
 Um=Usb_monitor()
 Um.usb_monitor()
